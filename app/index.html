@@ -58,18 +58,12 @@
                 buildnumber: <%= buildnumber %>,
                 env: '<%= env %>'
             });
-            require(['app'], function(app) {
-                app.start();
-            });
         </script>
         /build -->
         <!-- build:remove -->
         <script type="text/javascript">
             require.config({
                 env: 'local'
-            });
-            require(['app'], function(app) {
-                app.start();
             });
         </script>
         <!-- /build -->

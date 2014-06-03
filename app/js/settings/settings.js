@@ -11,8 +11,11 @@ define({
 			return;
 		}
 
-		req([envFile], function (settings) {
-			onLoad(settings);
+		req(['underscore', envFile], function (_, settings) {
+			var mergedSettings = _.extend(
+				settings, _.pick(config, 'env', 'buildnumber', 'version')
+			);
+			onLoad(mergedSettings);
 		}, onLoad.error);
 	}
 });
