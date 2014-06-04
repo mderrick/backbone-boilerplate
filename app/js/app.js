@@ -1,9 +1,8 @@
 define([
-    'underscore',
     'backbone',
     'extensions/router',
     'settings/settings!'
-], function (_, Backbone, Router, settings) {
+], function (Backbone, Router, settings) {
     
     'use strict';
     
