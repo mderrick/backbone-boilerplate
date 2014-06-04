@@ -1,9 +1,9 @@
 define(function() {
-	
-	'use strict';
-	
-	return {
-		env: 'prod',
-		debug: false
-	};
+    
+    'use strict';
+
+    return {
+        env: 'prod',
+        debug: false
+    };
 });

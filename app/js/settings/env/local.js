@@ -1,9 +1,9 @@
 define(function() {
-	
-	'use strict';
+    
+    'use strict';
 
-	return {
-		env: 'local',
-		debug: true
-	};
+    return {
+        env: 'local',
+        debug: true
+    };
 });

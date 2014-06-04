@@ -3,7 +3,7 @@ define([
     'extensions/router',
     'settings/settings!'
 ], function (Backbone, Router, settings) {
-    
+
     'use strict';
     
     var app = {
