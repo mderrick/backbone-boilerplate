@@ -21,7 +21,7 @@ define([
             });
         }
     };
-    console.log(settings);
+
     if (settings.debug) {
         window.app = this;
     }
