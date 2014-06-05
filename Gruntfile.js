@@ -153,7 +153,8 @@ module.exports = function(grunt) {
       'requirejs',
       'copy',
       'rename',
-      'cssmin'
+      'cssmin',
+      'clean:after'
     ];
     grunt.config.set('buildnumber', buildnumber);
     grunt.config.set('environment', target);
