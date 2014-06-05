@@ -1,8 +1,10 @@
 define([
+    'modernizr',
+    'require',
     'backbone',
     'extensions/router',
     'settings/settings!'
-], function (Backbone, Router, settings) {
+], function (Modernizr, require, Backbone, Router, settings) {
 
     'use strict';
     

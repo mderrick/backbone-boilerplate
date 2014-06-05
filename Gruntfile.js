@@ -49,28 +49,22 @@ module.exports = function(grunt) {
     requirejs: {
       dist: {
         options: {
+          preserveLicenseComments: false,
+          optimize: 'uglify2',
+          generateSourceMaps: true,
           baseUrl: 'app/js',
           mainConfigFile: ['app/js/config.js'],
           env: '<%= grunt.config.get("environment") %>',
-          dir: 'dist/.tmp/',
-          optimize: 'none',
+          dir: 'dist/.tmp/app',
+          paths: {
+            // Overide full development version of modernizr to use out custom
+            // built copy.
+            modernizr: '../../dist/.tmp/modernizr-custom'
+          },
           modules: [{
-            name: 'app'
+            name: 'app',
+            include: ['requireLib']
           }]
-        }
-      }
-    },
-    uglify: {
-      dist: {
-        files: { 
-          'dist/app/assets/header.min.<%= grunt.config.get("buildnumber") %>.js': [
-            'dist/.tmp/modernizr-custom.js'
-          ],
-          'dist/app/assets/app.min.<%= grunt.config.get("buildnumber") %>.js': [
-            'app/bower_components/requirejs/require.js',
-            'app/js/config.js',
-            'dist/.tmp/app.js'
-          ]
         }
       }
     },
@@ -84,6 +78,12 @@ module.exports = function(grunt) {
     copy: {
       dist: {
         files: [{
+            expand: true,
+            cwd: 'dist/.tmp/app/',
+            src: ['app.js', 'app.js.map'],
+            dest: 'dist/app/assets/',
+            filter: 'isFile'
+          }, {
             expand: true,
             src: ['package.json', 'Procfile'],
             dest: 'dist/',
@@ -100,6 +100,13 @@ module.exports = function(grunt) {
             dest: 'dist/app',
             filter: 'isFile'
           }]
+      }
+    },
+    rename: {
+      dist: {
+        files: [{
+          src: ['dist/app/assets/app.js'], dest: 'dist/app/assets/app.min.<%= grunt.config.get("buildnumber") %>.js',
+        }]
       }
     },
     clean: {
@@ -142,12 +149,11 @@ module.exports = function(grunt) {
       'clean:before',
       'processhtml',
       'htmlmin',
-      'requirejs',
       'modernizr',
-      'uglify',
+      'requirejs',
       'copy',
-      'cssmin',
-      'clean:after'
+      'rename',
+      'cssmin'
     ];
     grunt.config.set('buildnumber', buildnumber);
     grunt.config.set('environment', target);
