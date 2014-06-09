@@ -19,3 +19,12 @@ And then run the command `grunt server:ENV_NAME` or `grunt build:ENV_NAME`.
 By default any environment that is not `local` will run the build. This will
 change and is likely to be an option for all environments to run in both
 minified and unminified states at a later date.
+
+TODO:
+- Test server files
+- .jshintrc and grunt linting
+- CSS sourcemaps
+- Use Mocha instead of Jasmine? (TBC)
+- Image minification
+- Error handling and logging (errbit?)
+- BUILD SOMETHING!

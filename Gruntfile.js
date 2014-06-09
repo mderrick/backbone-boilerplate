@@ -1,7 +1,9 @@
 /* global module:false */
 module.exports = function(grunt) {
-  
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+
+  // Load all grunt tasks except template-jasmine-requirejs which is required in
+  // the jasmine taske below.
+  require('matchdep').filterDev('grunt-!(template-jasmine-requirejs)').forEach(grunt.loadNpmTasks);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -57,7 +59,7 @@ module.exports = function(grunt) {
           env: '<%= grunt.config.get("environment") %>',
           dir: 'dist/.tmp/app',
           paths: {
-            // Overide full development version of modernizr to use out custom
+            // Overide full development version of modernizr to use our custom
             // built copy.
             modernizr: '../../dist/.tmp/modernizr-custom'
           },
@@ -65,6 +67,21 @@ module.exports = function(grunt) {
             name: 'app',
             include: ['requireLib']
           }]
+        }
+      }
+    },
+    jasmine: {
+      all: {
+        options: {
+          src: 'app/js/**/*.js',
+          specs: 'tests/app/**/*.js',
+          template: require('grunt-template-jasmine-requirejs'),
+          templateOptions: {
+            requireConfigFile: './app/js/config.js',
+            requireConfig: {
+              baseUrl: 'app/js'
+            }
+          }
         }
       }
     },
@@ -146,6 +163,7 @@ module.exports = function(grunt) {
     var buildnumber = grunt.option('buildnumber') || (new Date()).getTime();
     target = target || 'local';
     tasks = [
+      'jasmine',
       'clean:before',
       'processhtml',
       'htmlmin',
