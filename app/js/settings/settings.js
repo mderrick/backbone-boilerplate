@@ -1,9 +1,11 @@
 define({
     envDir: 'settings/env/',
-    load: function(name, req, onLoad, config) {
+    load: function (name, req, onLoad, config) {
         'use strict';
         
-        var envFile = config.env ? this.envDir + config.env : this.envDir + 'local';
+        var envFile = config.env ?
+            this.envDir + config.env :
+            this.envDir + 'local';
 
         if (config.isBuild) {
             req([envFile]);

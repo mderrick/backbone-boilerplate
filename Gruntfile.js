@@ -1,5 +1,8 @@
+/* jshint maxlen: false */
 /* global module:false */
 module.exports = function(grunt) {
+
+  'use strict';
 
   // Load all grunt tasks except template-jasmine-requirejs which is required in
   // the jasmine taske below.
@@ -85,6 +88,15 @@ module.exports = function(grunt) {
         }
       }
     },
+    jshint: {
+      options: {
+        jshintrc: true
+      },
+      all: [
+        'app/js/**/*.js',
+        'Gruntfile.js'
+      ]
+    },
     cssmin: {
       dist: {
         files: {
@@ -160,10 +172,11 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build', function(target) {
-    var buildnumber = grunt.option('buildnumber') || (new Date()).getTime();
+    var buildnumber = grunt.option('buildnumber') || (new Date()).getTime(),
+      tasks;
     target = target || 'local';
     tasks = [
-      'jasmine',
+      'test',
       'clean:before',
       'processhtml',
       'htmlmin',
@@ -178,4 +191,6 @@ module.exports = function(grunt) {
     grunt.config.set('environment', target);
     grunt.task.run(tasks);
   });
+
+  grunt.registerTask('test', ['jshint', 'jasmine']);
 };
