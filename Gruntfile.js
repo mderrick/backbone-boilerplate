@@ -93,8 +93,9 @@ module.exports = function(grunt) {
         jshintrc: true
       },
       all: [
-        'app/js/**/*.js',
-        'Gruntfile.js'
+        // Lint everything and use .jshintignore to exclude directories.
+        // This will keep linting from other applications (such as your IDE) in sync.
+        './'
       ]
     },
     cssmin: {

@@ -1,0 +1,12 @@
+{
+    "browser": true,
+    "node": true,
+    "globals": {
+        "define": false,
+        "describe": false,
+        "it": false,
+        "spyon": false,
+        "expect": false,
+        "waits": false
+    }
+}
