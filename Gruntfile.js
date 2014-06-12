@@ -88,13 +88,20 @@ module.exports = function(grunt) {
         }
       }
     },
+    'jasmine_node': {
+      options: {
+        extensions: 'js',
+        specNameMatcher: 'spec'
+      },
+      all: ['tests/server/']
+    },
     jshint: {
       options: {
         jshintrc: true
       },
       all: [
         // Lint everything and use .jshintignore to exclude directories.
-        // This will keep linting from other applications (such as your IDE) in sync.
+        // This will keep linting from other applications in sync.
         './'
       ]
     },
@@ -193,5 +200,5 @@ module.exports = function(grunt) {
     grunt.task.run(tasks);
   });
 
-  grunt.registerTask('test', ['jshint', 'jasmine']);
+  grunt.registerTask('test', ['jshint', 'jasmine', 'jasmine_node']);
 };

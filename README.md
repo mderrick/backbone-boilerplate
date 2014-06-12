@@ -35,13 +35,15 @@ running the server on the `dist` folder.
 
 ### `grunt test`
 
-Runs the entire `app/js` directory through JSHint. It uses the rules established
-in the `.jshintrc`.
+Runs the entire application (except directories in `.jshintignore`) through 
+JSHint using the rules established in the `.jshintrc`.
 
-It then runs jasmine tests located in `tests` directory.
+This is followed by running jasmine tests located in `tests` directory. Tests 
+for the client are run in `tests/app` and serverside tests are run in 
+`tests/server`.
 
 ## TODO
-- Test server files
+- Write a more extensive server
 - CSS sourcemaps
 - Use Mocha instead of Jasmine? (TBC)
 - Image minification
