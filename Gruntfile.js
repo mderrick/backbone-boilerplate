@@ -184,7 +184,6 @@ module.exports = function(grunt) {
       tasks;
     target = target || 'local';
     tasks = [
-      'test',
       'clean:before',
       'processhtml',
       'htmlmin',
