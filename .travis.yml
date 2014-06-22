@@ -7,3 +7,6 @@ before_install:
     - bower install
 after_success:
     - grunt build:prod
+    # The 'dist' directory will now contain
+    # our production ready application.
+    # Push it to Heroku/Dokku etc here.

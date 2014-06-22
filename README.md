@@ -1,5 +1,10 @@
 # Backbone Boilerplate [![Build Status](https://travis-ci.org/mderrick/backbone-boilerplate.svg?branch=master)](https://travis-ci.org/mderrick/backbone-boilerplate)
 
+A backbone boilerplate to build and deploy multiple environments. This boilerplate
+uses [Grunt](http://gruntjs.com/), [Require](http://requirejs.org/), 
+[Bower](http://bower.io/), [Express](http://expressjs.com/), 
+[Jasmine](http://jasmine.github.io/) and [Travis](https://travis-ci.org/).
+
 ## Getting started
 
 - `npm install`
