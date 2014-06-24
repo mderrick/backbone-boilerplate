@@ -9,7 +9,8 @@
   "dependencies": {
     "express": "~3.3.4",
     "prerender-node": "~0.1.18",
-    "colors": "~0.6.2"
+    "colors": "~0.6.2",
+    "request": "~2.36.0"
   },
   "engines": {
     "node": "0.10.x",
@@ -39,6 +40,7 @@
     "grunt-template-jasmine-requirejs": "~0.2.0",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-jasmine-node": "~0.2.1",
-    "supertest": "~0.13.0"
+    "supertest": "~0.13.0",
+    "rewire": "~2.0.1"
   }
 }
