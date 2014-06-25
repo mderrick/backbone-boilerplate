@@ -4,8 +4,9 @@ var rewire = require('rewire'),
 describe('controllers.build', function () {
 
     var requestSpy;
+
     beforeEach(function() {
-        requestSpy = jasmine.createSpy('request spy');
+        requestSpy = jasmine.createSpy('request');
         instance.__set__({
             request: requestSpy
         });
