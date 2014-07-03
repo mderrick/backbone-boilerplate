@@ -8,6 +8,6 @@ var buildController = require('./controllers/build');
  * @param  {Object} app The express app
  */
 module.exports.initialize = function(app) {
-	'use strict';
-	app.get('/api/build/', buildController.get);
+    'use strict';
+    app.get('/api/build/', buildController.get);
 };
