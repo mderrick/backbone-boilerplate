@@ -27,13 +27,13 @@
             <link rel="stylesheet" href="/assets/styles.min.<%= buildnumber %>.css" />
         /build -->
         <!-- build:remove -->
-            <link rel="stylesheet" href="/css/styles.css">
+            <link rel="stylesheet" href="/app/css/styles.css">
         <!-- /build -->
     </head>
     <body>
         <div class="main"></div>
         <!-- build:remove -->
-            <script data-main="/js/config" src="/bower_components/requirejs/require.js"></script>
+            <script data-main="/app/js/config" src="/bower_components/requirejs/require.js"></script>
         <!-- /build -->
         <!-- build:template
         <script src="/assets/app.min.<%= buildnumber %>.js"></script>
@@ -52,6 +52,12 @@
             });
         </script>
         <!-- /build -->
+        <script type="text/javascript">
+            require(['app'], function (app) {
+                'use strict';
+                app.start();
+            });
+        </script>
     </body>
     <!--<%= footer %>-->
 </html>

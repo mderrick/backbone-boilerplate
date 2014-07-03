@@ -22,7 +22,7 @@ The boilerplate includes both the `local` and `prod` environments.
 
 To add more environments simply create two files:
 - `env/.<ENV_NAME>`
-- `app/js/settings/env/<ENV_NAME>.js`
+- `www/app/js/settings/env/<ENV_NAME>.js`
 
 And then run the command `grunt build:<ENV_NAME>`.
 

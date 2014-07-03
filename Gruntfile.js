@@ -23,7 +23,7 @@ module.exports = function(grunt) {
         },
         dist: {
             files: {
-                'dist/app/index.html': ['app/index.html']
+                'dist/www/index.html': ['www/index.html']
             }
         }
     },
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
           ignoreCustomComments: [/^Build:.*/]
         },
         files: {
-          'dist/app/index.html': 'dist/app/index.html'
+          'dist/www/index.html': 'dist/www/index.html'
         }
       }
     },
@@ -45,9 +45,9 @@ module.exports = function(grunt) {
       dist: {
         parseFiles: true,
         files: {
-          src: ['app/js/**/*.js', 'app/css/**/*.css']
+          src: ['www/app/**/*.js', 'www/app/**/*.css', 'www/index.html']
         },
-        devFile: 'app/bower_components/modernizr/modernizr.js',
+        devFile: 'www/bower_components/modernizr/modernizr.js',
         outputFile: 'dist/.tmp/modernizr-custom.js'
       }
     },
@@ -57,14 +57,14 @@ module.exports = function(grunt) {
           preserveLicenseComments: false,
           optimize: 'uglify2',
           generateSourceMaps: true,
-          baseUrl: 'app/js',
-          mainConfigFile: ['app/js/config.js'],
+          baseUrl: 'www/app/js',
+          mainConfigFile: ['www/app/js/config.js'],
           env: '<%= grunt.config.get("environment") %>',
           dir: 'dist/.tmp/app',
           paths: {
             // Overide full development version of modernizr to use our custom
             // built copy.
-            modernizr: '../../dist/.tmp/modernizr-custom'
+            modernizr: '../../../dist/.tmp/modernizr-custom'
           },
           modules: [{
             name: 'app',
@@ -76,13 +76,13 @@ module.exports = function(grunt) {
     jasmine: {
       all: {
         options: {
-          src: 'app/js/**/*.js',
+          src: 'www/app/js/**/*.js',
           specs: 'tests/app/**/*.js',
           template: require('grunt-template-jasmine-requirejs'),
           templateOptions: {
-            requireConfigFile: './app/js/config.js',
+            requireConfigFile: './www/app/js/config.js',
             requireConfig: {
-              baseUrl: 'app/js'
+              baseUrl: 'www/app/js'
             }
           }
         }
@@ -108,7 +108,7 @@ module.exports = function(grunt) {
     cssmin: {
       dist: {
         files: {
-          'dist/app/assets/styles.min.<%= grunt.config.get("buildnumber") %>.css': ['app/css/styles.css']
+          'dist/www/assets/styles.min.<%= grunt.config.get("buildnumber") %>.css': ['www/app/css/styles.css']
         }
       }
     },
@@ -118,7 +118,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'dist/.tmp/app/',
             src: ['app.js', 'app.js.map'],
-            dest: 'dist/app/assets/',
+            dest: 'dist/www/assets/',
             filter: 'isFile'
           }, {
             expand: true,
@@ -132,9 +132,9 @@ module.exports = function(grunt) {
             filter: 'isFile'
           }, {
             expand: true,
-            cwd: 'app/',
-            src: ['**', '!css/**', '!js/**', '!bower_components/**', '!index.html'],
-            dest: 'dist/app',
+            cwd: 'www/',
+            src: ['**', '!app/**', '!bower_components/**', '!index.html'],
+            dest: 'dist/www',
             filter: 'isFile'
           }]
       }
@@ -142,7 +142,7 @@ module.exports = function(grunt) {
     rename: {
       dist: {
         files: [{
-          src: ['dist/app/assets/app.js'], dest: 'dist/app/assets/app.min.<%= grunt.config.get("buildnumber") %>.js',
+          src: ['dist/www/assets/app.js'], dest: 'dist/www/assets/app.min.<%= grunt.config.get("buildnumber") %>.js',
         }]
       }
     },

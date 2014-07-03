@@ -9,7 +9,6 @@ define([
     'use strict';
     
     var app = {
-
         /**
          * Starts the application.
          */
@@ -24,7 +23,7 @@ define([
     };
 
     if (settings.debug) {
-        window.app = this;
+        window.app = app;
     }
 
     return app;

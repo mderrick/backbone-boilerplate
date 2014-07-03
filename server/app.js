@@ -10,11 +10,11 @@ app.use(prerender);
 app.use(app.router);
 routes.initialize(app);
 
-app.use('/', express.static(path.join(__dirname, '../app')));
+app.use('/', express.static(path.join(__dirname, '../www')));
 app.use(function(req, res) {
 	'use strict';
 	res.sendfile('index.html', {
-		root: 'app/'
+		root: path.join(__dirname, '../www')
 	});
 });
 

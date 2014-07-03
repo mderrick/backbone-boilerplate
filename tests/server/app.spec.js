@@ -12,14 +12,14 @@ describe('app', function () {
 
     it('should return static javascript in \'app\' directory', function (done) {
         request(app)
-            .get('/js/config.js')
+            .get('/app/js/config.js')
             .expect('Content-Type', 'application/javascript')
             .expect(200, done);
     });
 
     it('should return static css in \'app\' directory', function (done) {
         request(app)
-            .get('/css/styles.css')
+            .get('/app/css/styles.css')
             .expect('Content-Type', 'text/css; charset=UTF-8')
             .expect(200, done);
     });
