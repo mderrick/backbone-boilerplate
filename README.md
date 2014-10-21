@@ -1,16 +1,18 @@
 # Backbone Boilerplate [![Build Status](https://travis-ci.org/mderrick/backbone-boilerplate.svg?branch=master)](https://travis-ci.org/mderrick/backbone-boilerplate)
 
-A backbone boilerplate to build and deploy multiple environments. This boilerplate
-uses [Grunt](http://gruntjs.com/), [Require](http://requirejs.org/), 
+A backbone boilerplate to build and deploy multiple environments for both web 
+and cordova applications using the same codebase. This boilerplate uses 
+[Grunt](http://gruntjs.com/), [Require](http://requirejs.org/), 
 [Bower](http://bower.io/), [Express](http://expressjs.com/), 
-[Jasmine](http://jasmine.github.io/) and [Travis](https://travis-ci.org/).
+[Jasmine](http://jasmine.github.io/) and [Cordova](http://cordova.apache.org/).
 
 ## Getting started
 
 - `npm install`
 - `bower install`
-- `grunt server`
-- Go to `http://localhost:9001`
+- 'npm install ios-sim -g'
+- `grunt server:prod --cordova`
+- Go to `http://localhost:9001` and view app in simulator
 
 ## Tasks
 
@@ -25,6 +27,12 @@ To add more environments simply create two files:
 - `www/app/js/settings/env/<ENV_NAME>.js`
 
 And then run the command `grunt build:<ENV_NAME>`.
+
+Include `--cordova` option and this will also create and prepare the cordova 
+application in the `dist` directory and launch it in the ios simulator.
+Obviously this can and should be changed to include other sims in the `Gruntfile.js`.
+
+Please see [Cordova](http://cordova.apache.org/) documentation on installing device emulators.
 
 
 ### `grunt server:<ENV_NAME>`
@@ -46,11 +54,3 @@ JSHint using the rules established in the `.jshintrc`.
 This is followed by running jasmine tests located in `tests` directory. Tests 
 for the client are run in `tests/app` and serverside tests are run in 
 `tests/server`.
-
-## TODO
-- Write a more extensive server
-- CSS sourcemaps
-- Use Mocha instead of Jasmine? (TBC)
-- Image minification
-- Error handling and logging (errbit?)
-- BUILD SOMETHING!

@@ -10,22 +10,43 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    processhtml: {
+    cordovacli: {
+      options: {
+        path: 'dist'
+      },
+      dist: {
         options: {
-          strip: true,
-          process: true,
-          data: {
-            env: '<%= grunt.config.get("environment") %>',
-            version: '<%= pkg.version %>',
-            buildnumber: '<%= grunt.config.get("buildnumber") %>',
-            footer: 'Build: <%= pkg.name %> v<%= pkg.version %> on <%= grunt.template.today("dd/mm/yyyy") %> (<%= grunt.config.get("buildnumber") %>). Env: <%= grunt.config.get("environment") %>.'
-          }
-        },
-        dist: {
-            files: {
-                'dist/www/index.html': ['www/index.html']
-            }
+          command: ['create', 'platform', 'plugin'],
+          platforms: ['ios'],
+          plugins: ['device', 'console', 'dialogs'],
+          id: 'io.cordova.bacboneboilerplate',
+          name: 'BackboneBoilerplate'
         }
+      },
+      emulate: {
+        options: {
+          command: 'emulate',
+          platforms: ['ios']
+        }
+      }
+    },
+    processhtml: {
+      options: {
+        strip: true,
+        process: true,
+        data: {
+          env: '<%= grunt.config.get("environment") %>',
+          version: '<%= pkg.version %>',
+          buildnumber: '<%= grunt.config.get("buildnumber") %>',
+          footer: 'Build: <%= pkg.name %> v<%= pkg.version %> on <%= grunt.template.today("dd/mm/yyyy") %> (<%= grunt.config.get("buildnumber") %>). Env: <%= grunt.config.get("environment") %>.'
+        }
+      },
+      dist: {
+        files: {
+          'dist/www/index.html': ['www/index.html'],
+          'dist/www/cordova_index.html': ['www/cordova_index.html']
+        }
+      }
     },
     htmlmin: {
       dist: {
@@ -37,7 +58,8 @@ module.exports = function(grunt) {
           ignoreCustomComments: [/^Build:.*/]
         },
         files: {
-          'dist/www/index.html': 'dist/www/index.html'
+          'dist/www/index.html': 'dist/www/index.html',
+          'dist/www/cordova_index.html': 'dist/www/cordova_index.html'
         }
       }
     },
@@ -45,7 +67,7 @@ module.exports = function(grunt) {
       dist: {
         parseFiles: true,
         files: {
-          src: ['www/app/**/*.js', 'www/app/**/*.css', 'www/index.html']
+          src: ['www/app/**/*.js', 'www/app/**/*.css', 'www/index.html', 'www/cordova_index.html']
         },
         devFile: 'www/bower_components/modernizr/modernizr.js',
         outputFile: 'dist/.tmp/modernizr-custom.js'
@@ -122,7 +144,7 @@ module.exports = function(grunt) {
             filter: 'isFile'
           }, {
             expand: true,
-            src: ['package.json', 'Procfile'],
+            src: ['package.json', 'Procfile', '_config.xml'],
             dest: 'dist/',
             filter: 'isFile'
           }, {
@@ -133,7 +155,7 @@ module.exports = function(grunt) {
           }, {
             expand: true,
             cwd: 'www/',
-            src: ['**', '!app/**', '!bower_components/**', '!index.html'],
+            src: ['**', '!app/**', '!bower_components/**', '!index.html', '!cordova_index.html'],
             dest: 'dist/www',
             filter: 'isFile'
           }]
@@ -142,12 +164,14 @@ module.exports = function(grunt) {
     rename: {
       dist: {
         files: [{
-          src: ['dist/www/assets/app.js'], dest: 'dist/www/assets/app.min.<%= grunt.config.get("buildnumber") %>.js',
+          src: ['dist/www/assets/app.js'], dest: 'dist/www/assets/app.min.<%= grunt.config.get("buildnumber") %>.js'
+        }, {
+          src: ['dist/_config.xml'], dest: 'dist/config.xml'
         }]
       }
     },
     clean: {
-      after: ['dist/.tmp'],
+      after: ['dist/.tmp', 'dist/www/css', 'dist/www/js', 'dist/www/img'],
       before: ['dist']
     },
     env: {
@@ -181,10 +205,15 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', function(target) {
     var buildnumber = grunt.option('buildnumber') || (new Date()).getTime(),
-      tasks;
+        cordova = grunt.option('cordova'),
+        tasks = ['clean:before'];
+
     target = target || 'local';
-    tasks = [
-      'clean:before',
+
+    if (cordova) {
+      tasks.push('cordovacli:dist');
+    }
+    tasks.push(
       'processhtml',
       'htmlmin',
       'modernizr',
@@ -193,7 +222,10 @@ module.exports = function(grunt) {
       'rename',
       'cssmin',
       'clean:after'
-    ];
+    );
+    if (cordova) {
+      tasks.push('cordovacli:emulate');
+    }
     grunt.config.set('buildnumber', buildnumber);
     grunt.config.set('environment', target);
     grunt.task.run(tasks);
