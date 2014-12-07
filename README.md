@@ -10,7 +10,7 @@ and cordova applications using the same codebase. This boilerplate uses
 
 - `npm install`
 - `bower install`
-- 'npm install ios-sim -g'
+- `npm install ios-sim -g`
 - `grunt server:prod --cordova`
 - Go to `http://localhost:9001` and view app in simulator
 
